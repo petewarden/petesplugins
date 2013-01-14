@@ -1,0 +1,329 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Help on installing the plugins</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body bgcolor="#CCCCCC" text="#000000">
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="/static/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="/static/js/graph-calc.js" ></script>
+<script type="text/javascript" src="/static/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1388534399999;
+var wbPrefix = "/web/";
+var wbCurrentUrl = "http:\/\/www.petewarden.com\/InstallHelp.htm";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 18;
+var firstYear = 1996;
+var imgWidth = 450;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "18";
+var displayMonth = "Dec";
+var displayYear = "2006";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(/static/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://www.petewarden.com/InstallHelp.htm" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20061218042817" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20060909195222/http://www.petewarden.com/InstallHelp.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="9 Sep 2006"><strong>SEP</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 4:28:17 Dec 18, 2006">DEC</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20070216072022/http://www.petewarden.com/InstallHelp.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="16 Feb 2007"><strong>FEB</strong></a>
+		                
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20061124125853/http://www.petewarden.com/InstallHelp.htm" title="12:58:53 Nov 24, 2006" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 4:28:17 Dec 18, 2006">18</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20070216072022/http://www.petewarden.com/InstallHelp.htm" title="7:20:22 Feb 16, 2007" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_nxt_on.png" alt="Next capture" width="14" height="16" border="0"/></a>
+		                
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20051124230031/http://www.petewarden.com/InstallHelp.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="24 Nov 2005"><strong>2005</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 4:28:17 Dec 18, 2006">2006</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20071219071951/http://www.petewarden.com/InstallHelp.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="19 Dec 2007"><strong>2007</strong></a>
+		                
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="/web/20061218042817*/http://www.petewarden.com/InstallHelp.htm" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>73 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">12 Jul 03 - 27 May 12</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:450px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:450px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="450"
+				height="27"
+				border="0"
+				src="/web/jsp/graph.jsp?graphdata=450_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000210101_2004:-1:010101100101_2005:-1:001001020010_2006:11:010010221011_2007:-1:010210221322_2008:-1:211000101102_2009:-1:201111000112_2010:-1:101111110000_2011:-1:000001111000_2012:-1:000110000000_2013:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="/static/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="/static/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+<font FACE="Arial, Geneva">
+
+<blockquote>
+  <h1 align="center">Installation help</h1>
+  <p align="left">Click <a href="/web/20061218042817/http://www.petewarden.com/InstallHelp.htm">here</a> for help on using these plugins</p> 
+  <br>
+  <a href="/web/20061218042817/http://www.petewarden.com/index.htm">Home</a>
+  </p>
+  <hr width="80%">
+<h5 align="left">
+<ul bgcolor="#FFFFFF" align="left"><li>
+<a href="/web/20061218042817/http://www.petewarden.com/InstallHelp.htm#After Effects">After Effects</a></li><li>
+<a href="/web/20061218042817/http://www.petewarden.com/InstallHelp.htm#After Effects FF">After Effects FreeFrame</a></li><li>
+<a href="/web/20061218042817/http://www.petewarden.com/InstallHelp.htm#TransZendenT">TransZendenT</a></li><li>
+<a href="/web/20061218042817/http://www.petewarden.com/InstallHelp.htm#VisualJockey">VisualJockey</a></li>
+</ul>
+</h5>
+
+  <hr width="80%">
+<p>  </p>
+<p><br>
+</p>
+
+<a name="After Effects"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    After Effects Plugins
+</b></font></td></tr></table>
+  <p>
+Download the zip file containing the plugins for PCs <a href="/web/20061218042817/http://www.petewarden.com/PetesPlugins_AENative0.08.zip">here</a>, or for Macs the StuffIt file <a href="/web/20061218042817/http://www.petewarden.com/PetesPlugins_AEMac0.05.sit">here</a>, extract the files, and put them somewhere in the plug-ins folder of your After Effects installation.
+</p>
+<p><br>
+</p>
+
+<a name="After Effects FF"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    After Effects FreeFrame
+</b></font></td></tr></table>
+  <p>
+Download the host plugin, only available for the PC currently, <a href="/web/20061218042817/http://www.petewarden.com/FreeFrameHost.aex">FreeFrameHost.aex</a>, and put it somewhere in the plug-ins folder of your After Effects installation. Download the zip file containing the FreeFrame plugins you want to install, for example <a href="/web/20061218042817/http://www.petewarden.com/PetesPlugins_FreeFrame1.03.zip">PetesPlugins</a>, or one from the <a href="/web/20061218042817/http://www.freeframe.org/">FreeFrame home page</a>, and place the .dll's somewhere inside your plug-ins folder.
+  </p>
+  <p>
+When you start up After Effects, you should find a new entry in the Effects menu, Pete's Plugins, with FreeFrame Host inside. Apply this effect to a layer, and you should get an effect control box with a pop-up menu as its first item. If this pop-up menu says 'No FF dll's found', then there's been a problem locating the dll's, double-check that they're in the plug-ins folder, if they are, try moving them to a sub-folder of it.
+</p>
+<p>
+If it still can't find any .dlls, have you got more than one version of AE installed? Try placing the .dlls in the plug-in folders of the different installations. If you feel comfortable using the program regedit, look for the registry entry HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\After Effects\*.*\InstallPath, the host uses the first key that matches this to figure out where to look for the .dll's. Is there more than one registry entry that might match that?
+ 
+<p>
+You can only reliably use a single instance of an effect in a project. I'm afraid this is is a limitation of the FreeFrame standard, but it will be changed in a future release. I've had reports of crashes on MetaImage and Levels, which I'm working on fixing. Please <a href="mailto:contact@petewarden.com">mail me</a> with any other bugs you discover.
+</p> 
+<p><br>
+</p>
+
+<a name="TransZendenT"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    TransZendenT
+</b></font></td></tr></table>
+<p>
+Download the <a href="/web/20061218042817/http://www.petewarden.com/PetesPlugins_FreeFrame1.03.zip">zip</a> file containing the plugins, and place these inside the bank folder where you want to use them, eg "C:\TZT\Effector\Bank3\F1". Open the KeyMap.ini file in the same folder, and edit it to assign the effects to the keys you want, eg "1=PeteHalfTone.dll". 
+</p>
+<p>
+TZT only supports two parameters directly, so Shift+Ctrl+Number chooses which of my parameters you want to change, and Ctrl+Number sets the value of the chosen parameter.
+</p>
+<p><br>
+</p>
+
+<a name="VisualJockey"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    VisualJockey
+</b></font></td></tr></table>
+<p>
+There are two ways to use my plugins in VisualJockey, you can download the <a href="/web/20061218042817/http://www.petewarden.com/pkgPetes.fxp">native versions</a>, or run them through my <a href="/web/20061218042817/http://www.petewarden.com/pkgFreeFrame.fxp">FreeFrame host</a>. I recommend running the native versions when possible, since they run faster and have more features. The FreeFrame host gives you access to a wider range of other people's plugins.
+</p>
+<p><br>
+</p>
+
+  <p><br>
+  <hr width="80%">
+    <sub> (c) Pete Warden, 2003</sub>
+  </p>
+</blockquote>
+</font>
+</body>
+</html>
+
+
+
+
+
+<!--
+     FILE ARCHIVED ON 4:28:17 Dec 18, 2006 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 22:29:03 Jan 14, 2013.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

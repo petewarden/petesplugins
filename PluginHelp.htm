@@ -1,0 +1,1605 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Pete's Plugins Help</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body bgcolor="#CCCCCC" text="#000000">
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="/static/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="/static/js/graph-calc.js" ></script>
+<script type="text/javascript" src="/static/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1388534399999;
+var wbPrefix = "/web/";
+var wbCurrentUrl = "http:\/\/www.petewarden.com\/PluginHelp.htm";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 18;
+var firstYear = 1996;
+var imgWidth = 450;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "2";
+var displayMonth = "Feb";
+var displayYear = "2007";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(/static/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://www.petewarden.com/PluginHelp.htm" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20070202021941" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20061115005956/http://www.petewarden.com/PluginHelp.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="15 Nov 2006"><strong>NOV</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 2:19:41 Feb 2, 2007">FEB</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20070331115654/http://www.petewarden.com/PluginHelp.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="31 Mar 2007"><strong>MAR</strong></a>
+		                
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20070104181244/http://www.petewarden.com/PluginHelp.htm" title="18:12:44 Jan 4, 2007" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 2:19:41 Feb 2, 2007">2</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20070216104738/http://www.petewarden.com/PluginHelp.htm" title="10:47:38 Feb 16, 2007" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_nxt_on.png" alt="Next capture" width="14" height="16" border="0"/></a>
+		                
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20051221121249/http://www.petewarden.com/PluginHelp.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="21 Dec 2005"><strong>2005</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 2:19:41 Feb 2, 2007">2007</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20080213093214/http://www.petewarden.com/PluginHelp.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="13 Feb 2008"><strong>2008</strong></a>
+		                
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="/web/20070202021941*/http://www.petewarden.com/PluginHelp.htm" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>77 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">12 Apr 03 - 29 Apr 12</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:450px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:450px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="450"
+				height="27"
+				border="0"
+				src="/web/jsp/graph.jsp?graphdata=450_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000100210001_2004:-1:010101120101_2005:-1:011000110011_2006:-1:000110320120_2007:1:121000201344_2008:-1:411000101103_2009:-1:101111000011_2010:-1:111011110000_2011:-1:000000000011_2012:-1:100100000000_2013:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="/static/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="/static/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+<font FACE="Arial, Geneva">
+
+<blockquote>
+  <h1 align="center">FX help</h1>
+  <p align="left">Click <a href="/web/20070202021941/http://www.petewarden.com/InstallHelp.htm">here</a> for help installing these plugins</p> 
+  <br>
+  <a href="/web/20070202021941/http://www.petewarden.com/index.htm">Home</a>
+  </p>
+  <hr width="80%">
+<h5 align="left">
+<ul bgcolor="#FFFFFF" align="left"><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#BackDropKey">BackDropKey</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#BackLight">BackLight</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Bloom">Bloom</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Burn">Burn</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Chromium">Chromium</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#ColourReduce">ColourReduce</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#ColourWarp">ColourWarp</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#DeInterlace">DeInterlace</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Dilate">Dilate</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#DirectionalBlur">DirectionalBlur</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Dodge">Dodge</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Exclusion">Exclusion</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#FishEye">FishEye</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#GaussianBlur">GaussianBlur</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Glow">Glow</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#HalfTone">HalfTone</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Kaleidascope">Kaleidascope</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Levels">Levels</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#LionelBlur">LionelBlur</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#LiveFeed">LiveFeed</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#LiveFeed2">LiveFeed2</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#LumaOffset">LumaOffset</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#MetaImage">MetaImage</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Posterize">Posterize</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#RadialBlur">RadialBlur</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#RectDistort">RectDistort</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Refraction">Refraction</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Slide">Slide</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Smear">Smear</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Solarize">Solarize</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#SpiralBlur">SpiralBlur</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Squash">Squash</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Static">Static</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Stretch">Stretch</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Tile">Tile</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#TimeBlur">TimeBlur</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#TimeSlice">TimeSlice</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#TimeWarp">TimeWarp</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#TVPixel">TVPixel</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Vectorize">Vectorize</a></li><li>
+<a href="/web/20070202021941/http://www.petewarden.com/PluginHelp.htm#Wave">Wave</a></li>
+</ul>
+</h3>
+
+  <hr width="80%">
+<p>  </p>
+<a name="BackDropKey"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    BackDropKey
+</b></font></td></tr></table>
+  <p>This effect stores a frame of video, and uses that to mask areas in the current frame that are different from the original 'backdrop' frame. This only works while the camera is completely still, and it helps if you've got a bright, high-contrast, colourful scene. You get out an image that is marked white where the current image differs from the backdrop, and black elsewhere. It's intended that you use this image as a mask, for example so you can apply an effect only to foreground elements in an image. 
+  </p>
+  <h3 align="left">
+    Parameters
+  </h3>
+  <ol>
+    <li><em><strong>
+      Capture Frame
+      </strong></em>
+      <br>
+      Turn this on to use the current frame as the backdrop. A good time to do this is when there's nothing in shot but the background, then whenever people move in front of the background, they'll show up on the mask.
+      <br>
+    </li>
+    <li><em><strong>
+      Difference Threshold
+      </strong></em>
+      <br>
+      This parameter controls how much different part of the current frame has to be from the original backdrop before it's marked on the mask. The lower this value, the less difference there has to be between the backdrop and current image before it's marked on the mask. Low values mean that you mark fewer actual foreground elements as part of the background, but also get more mistakes from noise in the image. With a higher value, you get less noise, but also miss more actual parts of the foreground in the mask.
+    </li>
+  </ol>
+  <p><br>
+  </p>
+<a name="BackLight"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    BackLight
+</b></font></td></tr></table>
+  <p>This effect draws a line away from the centre of the image from each pixel, the brighter the pixel, the longer the line is.
+  </p>
+  <h3 align="left">
+    Parameters
+  </h3>
+  <ol>
+    <li><em><strong>
+      Spike Scale
+      </strong></em>
+      <br>
+      This controls the overall length of the lines, higher values do mean the effect takes longer to run, so if you're having framerate problems, keep this value low.<br>
+    </li>
+  </ol>
+  <p><br>
+    
+  </p>
+<a name="Bloom"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Bloom
+</b></font></td></tr></table>
+  <p>This effect trys to simulate the photographic problem of 'blooming', where areas of a picture exposed to very strong sources of light bleed into neighbouring areas, brightening them and giving light sources a 'halo'.
+  </p>
+  <h3 align="left">
+    Parameters
+  </h3>
+  <ol>
+    <li><em><strong>
+      Radius
+      </strong></em>
+      <br>
+      This controls how widely the brightening effect extends away from the light source, the larger the value the more area it covers
+    </li>
+    <li><em><strong>
+      Passes
+      </strong></em>
+      <br>
+      If you turn this down to 1 or 2 you'll get better performance but you
+        get a blockier look. With the default value of 3, you get much more rounded
+        halos. </li>
+    <li><em><strong>
+      Floor
+      </strong></em>
+      <br>
+      This parameter specifies the lowest brightness that you need before a
+        halo is generated. </li>
+    <li><em><strong>
+      Ceiling
+      </strong></em>
+      <br>
+      This sets the brightness value where the halo is at its maximum strength. </li>
+    <li><em><strong>
+      Aspect Ratio
+      </strong></em>
+      <br>
+      This changes the shape of the halo, from stretched out horizontally,
+        to circular, to stretched vertically </li>
+  </ol>
+  <p><br>
+    
+  </p>
+<a name="Burn"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Burn
+</b></font></td></tr></table>
+  <p>This emulates the photoshop effect of the same name.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <blockquote>
+    <p>    It has no parameters.
+    </p>
+  </blockquote>
+  <p><br>
+    
+  </p>
+<a name="Chromium"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Chromium
+</b></font></td></tr></table>
+  <p>This effect alters the colours in the image to give an otherworldly look. It's inspired by the free photoshop filter of the same name.
+  </p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Edge 1</strong></em><br> 
+      One of the inputs to the colour change algorithm
+    </li>
+    <li><em><strong>
+      Edge 2</strong></em><br>
+      The other input to the algorithm </li>
+    <li><em><strong>
+      Red Tint</strong></em><br>
+      Controls the redness of the result </li>
+    <li><em><strong>
+      Green Tint</strong></em><br>
+      Controls the greenness of the result </li>
+    <li><em><strong>
+      Blue Tint</strong></em><br>
+      Controls the blueness of the result </li>
+  </ol>
+  <p><br>
+    
+  </p>
+<a name="ColourReduce"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    ColourReduce
+</b></font></td></tr></table>
+  <p>This effect picks a limited number of colours to best represent the input image. The output is the image drawn using only those colours. It gives an effect similar to Posterize, but with a more intelligent choice of colours. Since the colour picking process depends on the colours in the current frame, if the colours change rapidly between frames you can have a distracting rapid change of palettes. To try and prevent this, I've included a way to damp down the speed at which the palette changes using the 'Palette Persistence' variable.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Colour Count</strong></em><br> 
+      How many colours to reduce the image to
+    </li>
+    <li><em><strong>
+      Palette Persistence</strong></em><br>
+      How 'sticky' the palette is, with high values the palette changes very
+      infrequently, with low values it changes rapidly </li>
+  </ol>
+  <p><br>
+    
+  </p>
+<a name="ColourWarp"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    ColourWarp
+</b></font></td></tr></table>
+  <p>This is a general purpose colour manipulation effect, it operates by changing the image to Hue; which colour, eg red, orange, purple, Saturation; how vivid the colour is, eg bright blue versus pastel blue, and Value; how dark the colour is. This allows you to change all the colours in an image without affecting their brightness, or increase the vividness of every colour without changing their hue or darkness.
+    I find this a useful tool for many situations, such as taking a washed out input and increasing the saturation scale to make the colours much stronger and clearer.
+    Because doing this conversion precisely takes a lot of power, you can turn on the 'cheap and nasty' option and sacrifice accuracy for speed. Another option is to do the conversion and pass the result out in the red, green and blue channels of the output. This allows you to apply other effects designed to work in RGB space with this HSV data, and then apply another ColourWarp converting back to give you the correct results.
+     
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Hue Offset</strong></em><br> 
+      How much to bump up all the hue's in the image by, use it to rotate the colours in the image around the hue colour wheel
+    </li>
+    <li><em><strong>
+      Hue Scale</strong></em><br>
+      How much to amplify the hue of the image by </li>
+    <li><em><strong>
+      Saturation Offset</strong></em><br>
+      How much to bump up the strength of all the colours by </li>
+    <li><em><strong>
+      Saturation Scale</strong></em><br>
+      How much to amplify the strength of each colour by </li>
+    <li><em><strong>
+      Value Offset</strong></em><br>
+      How much black to add to all the colours </li>
+    <li><em><strong>
+      Value Scale</strong></em><br>
+      How much to amplify the black contained in each colour by </li>
+    <li><em><strong>
+      Cheap And Nasty</strong></em><br>
+      Turns on optimisations that sacrifice accuracy for speed </li>
+    <li><em><strong>
+      RGB to HSV</strong></em><br>
+      Puts the hue of each pixel into the red channel of the output, the saturation
+      in the green, and the value in the blue </li>
+    <li><em><strong>
+      HSV to RGB</strong></em><br>
+      Does the opposite conversion, treating the red channel of the input as
+      the hue, the green as the saturation, and the blue as the value </li>
+  </ol>
+  <p><br>    
+  </p>
+
+<a name="DeInterlace"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    DeInterlace
+</b></font></td></tr></table>
+  <p>This provides a simple filter designed to smooth away the 'comb' lines that you get when you display interlaced video on a computer display. It blurs adjacent horizontal lines together, fixing the distracting lines but sacrificing some sharpness. It only works when the comb lines are alternating, since the PAL system doesn't fit exactly into a common computer resolution, there's an option to compensate for the case when a PAL input is scaled to 800x600.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      PAL 800x600 fix</strong></em><br> 
+      This turns on the fix for the PAL at 800x600 situation
+    </li>
+  </ol>
+  <p><br>
+    </p>
+
+<a name="Dilate"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Dilate
+</b></font></td></tr></table>
+  <p>This is a simple version of the MiniMax filter, it spreads the brightest or darkest pixels outwards. Applying this repeatedly can give interesting effects, for example applying it with erode turned on, followed by an instance with erode turned off tends to remove noise, without losing too much image detail.
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Erode</strong></em><br> 
+      This specifies whether the brightest or darkest pixels are the ones expanded
+    </li>
+  </ol>
+  <p><br>
+    </p>
+
+<a name="DirectionalBlur"></a>
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+     DirectionalBlur
+</b></font></td></tr></table>
+  <p>The input image is blurred in a single direction, giving a motion blurred
+    or windswept effect. </p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong> Radius</strong></em><br>
+    How many pixels the blurring extends for</li>
+    <li><em><strong> Angle</strong></em><br>
+	Sets the direction for the blurring</li>
+  </ol>
+  <p><br>
+  </p>
+
+<a name="Dodge"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Dodge
+</b></font></td></tr></table>
+  <p>This emulates the photoshop filter of the same name.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <blockquote>
+    <p>      It has no parameters.
+    </p>
+  </blockquote>
+  <p><br>
+    
+  </p>
+
+<a name="Exclusion"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Exclusion
+</b></font></td></tr></table>
+  <p>This emulates the photoshop filter of the same name.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <blockquote>
+    <p>      It has no parameters.
+    </p>
+  </blockquote>
+  <p><br>
+    
+
+  </p>
+
+<a name="FishEye"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    FishEye
+</b></font></td></tr></table>
+  <p>This makes the image look as if it was being viewed through a wide-angle fisheye lens, giving the sort of effect you see when you through a peep-hole in a door. 
+    
+</p>
+  <h3 align="left">Parameters</h3>
+   <ol>
+    <li><em><strong>
+      Distortion</strong></em><br> 
+      This controls how rounded the image becomes
+    </li>
+    <li><em><strong>
+      Maximum Radius</strong></em><br>
+      The size of the distorted image
+    </li>
+    <li><em><strong>
+      Centre X</strong></em><br>
+      Sets where the distortion is centred</li>
+    <li><em><strong>
+      Centre Y</strong></em><br>
+      Sets where the distortion is centred</li>
+   </ol>
+  <p><br>
+    
+
+  </p>
+
+<a name="GaussianBlur"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    GaussianBlur
+</b></font></td></tr></table>
+  <p>This effect smoothly blurs the input. It also allows the sharpness of the image to be increased using the UnSharp Mask method. There's a choice between performing true gaussian blurring, or using less accurate but much faster approximations, decided by the use of the 'Fake It' parameter. Faking it is highly recommended, and if you do you can control the trade-off between accuracy and speed using the 'Passes' parameter, when this is set to 1, you get a very fast but very blocky blur, at the default of 3 you'll get a blur that is usually indistinguisable from the true gaussian blurring. If you're having performance problems, turn 'Fake It' on and set 'Passes' to 1 or 2. 
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Radius</strong></em><br> 
+      This controls how strongly the image is blurred
+    </li>
+    <li><em><strong>
+      Edge Factor</strong></em><br>
+      This affects the internal workings of the blurring when 'Fake It' is turned
+      off. It's a very subtle adjustment, and is included for completeness's
+      sake, I've never needed it </li>
+    <li><em><strong>
+      Fake It</strong></em><br>
+      Turn this on to increase performance </li>
+    <li><em><strong>
+      Passes</strong></em><br>
+      Controls how accurate the faking is </li>
+    <li><em><strong>
+      Do UnSharp Mask</strong></em><br>
+      Changes the blur into a sharpening of the image when turned on </li>
+    <li><em><strong>
+      Aspect Ratio</strong></em><br>
+      This sets how stretched the blur is horizontally or vertically, when it's
+      low you get a lot of blurring sideways, and none up or down, when it's
+      medium you get equal blurring all round, and when it's high you get strong
+      vertical blurring </li>
+    <li><em><strong>
+      UnSharp Mask Amount</strong></em><br>
+      How much to sharpen the image by </li>
+    <li><em><strong>
+      Do Odd But Cool</strong></em><br>
+      Enables a bug I created whilst implementing the effect that I decided to
+      leave in since it gave a rather pleasing result </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Glow"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Glow
+</b></font></td></tr></table>
+  <p>This effect gives a halo to objects in the image. By default it puts a lighter glow on the darker background, but if you make the outer radius smaller than the inner radius, you get the opposite, a dark halo on lighter areas of the image. Internally, the effect uses a gaussian blur to do this, so several of the parameters are common with that effect.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Inner Radius</strong></em><br> 
+      This determines how far out from an outline the inner edge of the glow begins
+    </li>
+    <li><em><strong>
+      Outer Radius</strong></em><br>
+      This determines how far out the outer edge of the glow is from the object </li>
+    <li><em><strong>
+      Passes</strong></em><br>
+      This sets the how rounded and smooth the glow is, like the passes parameter
+      in Gaussian Blur, going to the higher quality levels slows down performance </li>
+    <li><em><strong>
+      Floor</strong></em><br>
+      This parameter controls the sharpness and strength of the glow, along with
+      the ceiling parameter. In general, a small gap between the two parameters
+      means a stronger, sharper glow, and a large gap means a weaker, more diffuse
+      effect. </li>
+    <li><em><strong>
+      Ceiling</strong></em><br>
+      Together with the floor parameter, this parameter controls the appearance
+      of the glow </li>
+    <li><em><strong>
+      Aspect Ratio</strong></em><br>
+      This controls the shape and direction of the glow, with small values giving
+      a horizontal glow, large values a vertically spreading one, and medium
+      values spreading the glow evenly. </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="HalfTone"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    HalfTone
+</b></font></td></tr></table>
+  <p>This tries to draw the input using the patterns of dots or diamonds that you find in newspaper photographs.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Dot Size</strong></em><br> 
+      This sets the size of the dots or diamonds that are used to make up the picture
+    </li>
+    <li><em><strong>
+      Style</strong></em><br>
+      This picks from 5 styles, round dots, lines, diamonds, 'euclidean', postscript
+      diamonds </li>
+    <li><em><strong>
+      Angle</strong></em><br>
+      Sets the orientation of the grids of dots on screen </li>
+    <li><em><strong>
+      Smoothing</strong></em><br>
+      This sets how blurry the dots on-screen are </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Kaleidascope"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Kaleidascope
+</b></font></td></tr></table>
+  <p>This effect is similar a traditional kaleidoscope, and allows you to reflect a part of the image multiple times around a centre point. You can set how many segments you want the image reflected as, how the mirrors are rotated, where the centre of the output images is, and what part of the source image is used as the source.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Divisions</strong></em><br> 
+      This controls how many segments the output image is composed of
+    </li>
+    <li><em><strong>
+      Output Angle</strong></em><br>
+      This sets how much to rotate the segments around the centre point when
+      they're drawn </li>
+    <li><em><strong>
+      Source Angle</strong></em><br>
+      The segment of the input image that is used for all the output segments
+      is rotated using this parameter </li>
+    <li><em><strong>
+      Source Center X</strong></em><br>
+      This sets the horizontal position of the central corner of the segment
+      in the input image </li>
+    <li><em><strong>
+      Source Center Y</strong></em><br>
+      This sets the vertical position of the central corner of the segment in
+      the input image </li>
+    <li><em><strong>
+      Output Center X</strong></em><br>
+      This sets the horizontal position of the centre of the rotated segments
+      in the output image </li>
+    <li><em><strong>
+      Output Center Y</strong></em><br>
+      This sets the vertical position of the centre of the rotated segments in
+      the output image </li>
+    <li><em><strong>
+      Reflection Line Proportion</strong></em><br>
+      This controls the relative sizes of each pair of adjacent segments in the
+      output image </li>
+    <li><em><strong>
+      Source Angle Proportion</strong></em><br>
+      This sets the angular size of the source segment, relative to the size
+      of the output segment, so altering this value will squash or expand </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Levels"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Levels
+</b></font></td></tr></table>
+  <p>This effect does the same things you can do with the 'Levels' functions
+    in PhotoShop, it allows the way the image colours scale from darkness to
+    white to be manipulated. Probably the best way to see how this works is by
+    opening the Levels dialog in PhotoShop, manipulating the sliders, and seeing
+    what effect they have on the image. Most of the sliders in PS are here as
+    parameters, with the left-most slider being referred to as the floor, and
+    the rightmost as the ceiling. The middle slider tab is not emulated in this
+    effect.
+It has two main options that affect the way the other parameters are used. If
+    'Auto' is turned on, then the effect attempts to do an operation like 'Auto-Levels'
+    in PhotoShop, so that the darkest value in the image is changed to black,
+    the whitest to white, and all the other colours in between are scaled to
+    fade smoothly between them. You specify a floor percentage and a ceiling
+    percentage, which dictate what percentage of the darkest colours to set to
+    black, and what percentage of the brightest colours to set to white, before
+    you start scaling between them. Setting these two percentages very close
+    together (eg 45% and 55%) gives a very contrasted image.
+If 'Auto' is turned off, then the absolute colour values specified in the floor
+    and ceiling variables are used to scale the input image's colours, without
+    worrying about what the darkest and lightest colours actually found in the
+    image are. This is particularly useful when you have an image with a very
+    small range of colours, eg that's very grey or washed out, and you want to
+    boost up the contrast in the image automatically.
+The second major option is 'Uniform', if this is on then the levels operation
+    operates on the overall brightness of a colour in the image, but if it's
+    off then the individual red, green and blue channels are treated seperately.
+    'Uniform' guarantees that only the brightness of the colours in the image
+    will be changed, with it turned off you can alter the hue of the colours
+    as well as the brightness.
+Note: This effect has more parameters than can be supported in TZT, so only a
+limited amount of the functions are available. </p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Auto</strong></em><br> 
+      This parameter controls whether do 'Auto-Levels', as explained in the description
+    </li>
+    <li><em><strong>
+      Uniform</strong></em><br>
+      This controls whether the colours are manipulated according to their overall
+      brightness, or the amounts of red, green and blue they contain, as explained
+      above in the description </li>
+    <li><em><strong>
+      Allow Inversion</strong></em><br>
+      This controls whether you can have combinations of values that invert the
+      colours in the image, like a film negative. Turn this off if you want to
+      make sure the image stays looking a bit naturalistic whilst you're changing
+      the parameters, but turn it on if you want the inverted look </li>
+    <li><em><strong>
+      Uniform Input Floor</strong></em><br>
+      Specifies what value to treat as black in the image, so that all colour
+      below this will be output as the darkest value in the output image. Only
+      used when 'Auto' is off and 'Uniform' is on </li>
+    <li><em><strong>
+      Uniform Input Ceiling</strong></em><br>
+      Sets what value to use as the brightest value in the image, so that all
+      colours brighter than this will come out with the highest brightness value
+      in the output. Only used when 'Auto' is off and 'Uniform' is on </li>
+    <li><em><strong>
+      Uniform Output Floor</strong></em><br>
+      This parameter sets how dark the darkest colour in the output image will
+      be. Only used when 'Auto' is off and 'Uniform' is on </li>
+    <li><em><strong>
+      Uniform Output Ceiling</strong></em><br>
+      This parameter sets the brightness of the brightest colour in the output
+      image. Only used when 'Auto' is off and 'Uniform' is on </li>
+    <li><em><strong>
+      Red Input Floor</strong></em><br>
+      This controls the red value that is treated as black in the input image.
+      Only used when 'Auto' is off and 'Uniform' is off </li>
+    <li><em><strong>
+      Red Input Ceiling</strong></em><br>
+      This sets the red value that is treated as if it were full saturation red
+      in the input image. Only used when 'Auto' is off and 'Uniform' is off </li>
+  </ol>
+  <p>The following parameters are not available in TransZendenT<br>
+    
+</p>
+  <ol>
+    <li><em><strong>
+      Red Output Floor</strong></em><br> 
+      This parameter describes what value of red to use for the darkest red in the output image.  Only used when 'Auto' is off and 'Uniform' is off
+    </li>
+    <li><em><strong>
+      Red Output Ceiling</strong></em><br>
+      This sets how strong full saturation red is in the output image, eg how
+      much red a white in the image will have. Only used when 'Auto' is off and
+      'Uniform' is off </li>
+    <li><em><strong>
+      Green Input Floor</strong></em><br>
+      This controls the green value that is treated as black in the input image.
+      Only used when 'Auto' is off and 'Uniform' is off </li>
+    <li><em><strong>
+      Green Input Ceiling</strong></em><br>
+      This sets the green value that is treated as if it were full saturation
+      green in the input image. Only used when 'Auto' is off and 'Uniform' is
+      off </li>
+    <li><em><strong>
+      Green Output Floor</strong></em><br>
+      This parameter describes what value of green to use for the darkest green
+      in the output image. Only used when 'Auto' is off and 'Uniform' is off </li>
+    <li><em><strong>
+      Green Output Ceiling</strong></em><br>
+      This sets how strong full saturation green is in the output image, eg how
+      much green a white in the image will have. Only used when 'Auto' is off
+      and 'Uniform' is off </li>
+    <li><em><strong>
+      Blue Input Floor</strong></em><br>
+      This controls the blue value that is treated as black in the input image.
+      Only used when 'Auto' is off and 'Uniform' is off </li>
+    <li><em><strong>
+      Blue Input Ceiling</strong></em><br>
+      This sets the blue value that is treated as if it were full saturation
+      blue in the input image. Only used when 'Auto' is off and 'Uniform' is
+      off </li>
+    <li><em><strong>
+      Blue Output Floor</strong></em><br>
+      This parameter describes what value of blue to use for the darkest blue
+      in the output image. Only used when 'Auto' is off and 'Uniform' is off </li>
+    <li><em><strong>
+      Blue Output Ceiling</strong></em><br>
+      This sets how strong full saturation blue is in the output image, eg how
+      much blue a white in the image will have. Only used when 'Auto' is off
+      and 'Uniform' is off </li>
+    <li><em><strong>
+      Low Percentile</strong></em><br>
+      This sets what percentage of the darkest colours in the image to set to
+      full black in the image when auto is enabled. If uniform is on, it sorts
+      colours by their overall brightness, if it's off it deals with the red,
+      green and blue channels of each colour seperately. </li>
+    <li><em><strong>
+      High Percentile</strong></em><br>
+      This controls the percentage of the brightest colours that are set to white
+      or full saturation, when 'Auto' is turned on. </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="LionelBlur"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    LionelBlur
+</b></font></td></tr></table>
+  <p>This effect smoothly blurs the edges of bright objects  over
+    darker objects. 
+  </p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Blur Falloff</strong></em><br> 
+      This controls how fast the blur fades away from the outline of an object. Small values mean the blur fades very quickly, large values keep the blur persisting
+    </li>
+    <li><em><strong>
+      Angle</strong></em><br> 
+      Sets the direction that the blur goes
+    </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="LiveFeed"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+     LiveFeed
+</b></font></td></tr></table>
+    
+</h2>
+  <p>This trys to get an image from a video capture device installed on the computer. It requires a 'WMD' capture driver and a current version of DirectX, and if it finds more than one device on the system it just picks the first one. If you are having problems getting this working, download 'amcap.exe' from http://www.petewarden.com/amcap.exe and run it. This is a Microsoft app, so see if you can get a capture image in this program. If you can't, then there's a problem with the setup of the device, and you'll need to experiment to find out what's happening. If you get an image, make the device you want is first in the list of devices it gives you. If it isn't, uninstall other devices. If you get an image and it's the first device, let me know and I'll try and fix the problem.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <blockquote>
+    <p>      It has no parameters.
+    </p>
+  </blockquote>
+  <p><br>
+    
+  </p>
+
+<a name="LiveFeed2"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+     LiveFeed2
+</b></font></td></tr></table>
+  <p>As above, but uses the second device found on the list.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <blockquote>
+    <p>      It has no parameters.
+    </p>
+  </blockquote>
+  <p><br>
+    
+  </p>
+
+<a name="LumaOffset"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    LumaOffset
+</b></font></td></tr></table>
+  <p>The image is broken up into seperate scan lines, each part of the scan line is moved up or down depending on the brightness of the image at that point. This effect was inspired by EffecTV.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Offset Scale</strong></em><br> 
+      How much to move the segments up and down by, small values give a very minimal perturbation to each scanline, large ones send the lines flying all over the place, very sensitive to changes in brightness
+    </li>
+    <li><em><strong>
+      Line Gap</strong></em><br>
+      This sets how many pixels of black to leave between the scan lines </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="MetaImage"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    MetaImage
+</b></font></td></tr></table>
+  <p>The output image is composed of many smaller versions of the input image, altered to match the colours of the area they cover in the original image.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Size</strong></em><br> 
+      This controls the size of the smaller sub-images that make up the picture, where 1 is as big as the original image and 0 is tiny. 
+    </li>
+    <li><em><strong>
+      Is Distance Based</strong></em><br>
+      This controls how the size of the images is changes by the 'Size' parameter,
+      if this is turned on then the size doesn't scale linearly, but is used
+      as if the images were on a plane in 3d space, and controls the distance
+      from the plane. </li>
+    <li><em><strong>
+      Cheap And Nasty</strong></em><br>
+      Part of the scaling down process on the images involves properly smoothing
+      them, turning this parameter on skips that step, giving a more jagged output
+      but speeding up the processing. </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Posterize"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Posterize
+</b></font></td></tr></table>
+  <p>Like the PhotoShop equivalent, this reduces the number of colours available to draw the output image in to a fixed number of brightnesses of red, green and blue, all equally seperated. 
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Levels</strong></em><br> 
+      This sets how many reds, green and blue levels to use to draw the output image
+    </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="RadialBlur"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    RadialBlur
+</b></font></td></tr></table>
+  <p>This is a blur that radiates out from the centre of the image, giving a strange otherworldly effect.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Layer Scale</strong></em><br> 
+      This dictates the way that the blur shoots out from the centre. Small values just give a little bit of blurring around the edge of the image, and large values make everything but a small focus around the middle get very blurred.
+    </li>
+    <li><em><strong>
+      Quality</strong></em><br>
+      This is an expensive effect, so small values on this parameter speed up
+      the effect but are more chunky, whereas large values give smooth results
+      at the expense of processing power. </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="RectDistort"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    RectDistort
+</b></font></td></tr></table>
+  <p>The input image is distorted as if by a very rough and changing lens, like looking straight down at the bottom of a pot of boiling water. This is done by layering many random rectangles of distortion onto a distortion map every frame, and letting the previously applied distortion relax into its old positions a little every time. 	
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Enable Clear</strong></em><br> 
+      Turning this on removes all the old distortion that was left over from old frames, and starts with a clean output
+    </li>
+    <li><em><strong>
+      Enable Rectangles</strong></em><br>
+      This controls whether or not to draw the rectangles of distortion </li>
+    <li><em><strong>
+      Rate</strong></em><br>
+      How many rectangles to draw each frame, small values give a very slowly
+      changing distortion effect, large values mean it moves very fast </li>
+    <li><em><strong>
+      Width</strong></em><br>
+      This sets how wide the widest rectangles of distortion are, with 1 being
+      the width of the image </li>
+    <li><em><strong>
+      Height</strong></em><br>
+      This sets how high the highest rectangles of distortion are, with 1 being
+      the height of the image </li>
+    <li><em><strong>
+      X Delta</strong></em><br>
+      How much the distortion moves the input left or right </li>
+    <li><em><strong>
+      Y Delta</strong></em><br>
+      How much the image is moved vertically by the distortion </li>
+    <li><em><strong>
+      Persistence</strong></em><br>
+      How slowly or quickly the distortion decays. Small values mean the distortion
+      disappears quickly, large values mean that it builds up for a lot longer. </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Refraction"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Refraction
+</b></font></td></tr></table>
+  <p>The input image is broken up into rectangular cells, and scaled up or down within them. The effect is like looking through a wall of glass bricks, each acting as a magnifying or shrinking lens for its part of the image.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Refraction Amount</strong></em><br> 
+      How much to shrink or expand the input image by within each cell
+    </li>
+    <li><em><strong>
+      Cell Width</strong></em><br>
+      The width of each cell, where 1 is the width of the image </li>
+    <li><em><strong>
+      Cell Height</strong></em><br>
+      The cell height, where 1 is the image's width </li>
+    <li><em><strong>
+      Allow Magnification</strong></em><br>
+      Turning this off prevents the image from being expanded to larger than
+      it's original size within each cell </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Slide"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Slide
+</b></font></td></tr></table>
+  <p>The input image is broken into two segments, which are slid independently against each other.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Horizontal</strong></em><br> 
+      This dictates whether the split line will be horizontal or vertical
+    </li>
+    <li><em><strong>
+      Mirror</strong></em><br>
+      If this is enabled, one side of the split is a mirror image of the other
+      side. </li>
+    <li><em><strong>
+      Mirror Flip</strong></em><br>
+      This controls whether one side of the split is flipped relative to the
+      other. </li>
+    <li><em><strong>
+      Proportion</strong></em><br>
+      This sets the position of the split, where 0 is one side of the image,
+      and 1 is the other. </li>
+    <li><em><strong>
+      Speed 1</strong></em><br>
+      The speed of one side of the split, relative to the direction of the split,
+      is controlled by this parameter. </li>
+    <li><em><strong>
+      Speed 2</strong></em><br>
+      The speed relative to the split line of the other side of the split image
+      is set by this parameter. </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Smear"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Smear
+</b></font></td></tr></table>
+  <p>This effect takes a straight line through the image, and stretches the pixels along that line over the image, either the entire image or just the part of the image on one side of the line.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Angle</strong></em><br> 
+      This controls the rotation of the smear line within the image.
+    </li>
+    <li><em><strong>
+      Distance</strong></em><br>
+      This sets the distance of the smear line from the centre of the image,
+      with -1 being completely off the image, and 1 completely covering it. </li>
+    <li><em><strong>
+      Smear Everything</strong></em><br>
+      Rather than splitting the image into an untouched section and a smeared
+      section, this takes the line of pixels along the smear line in the input
+      image, and draws them over the entire output. </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Solarize"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Solarize
+</b></font></td></tr></table>
+  <p>This effect emulates the PhotoShop effect of the same name, and changes all the colours in an image to give a weird look to the output. It works by smoothly changing between normally increasing and inverted colour scales.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Threshold</strong></em><br> 
+      This controls the point at which the colours start inverting rather than increasing.
+    </li>
+    <li><em><strong>
+      Start</strong></em><br>
+      What value the increase of the colours begins at. </li>
+    <li><em><strong>
+      End</strong></em><br>
+      Where the inversion of the colours finishes. </li>
+    <li><em><strong>
+      Limit</strong></em><br>
+      If this is turned on, then there's only a single increase and invert spike,
+      if it's off then the increase/invert spike is tiled across the palette </li>
+    <li><em><strong>
+      Floor</strong></em><br>
+      How dark the lowest colour in the output image will be. </li>
+    <li><em><strong>
+      Ceiling</strong></em><br>
+      How bright the brightest colour in the output image will be. </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="SpiralBlur"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    SpiralBlur
+</b></font></td></tr></table>
+  <p>This effect blurs the image in a circle, twists it around the center, with more blur applied at the edges of the image. Gives a 'drunk vision' sort of effect, a bit like RadialBlur
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Angle</strong></em><br> 
+      How much to twist the image
+    </li>
+    <li><em><strong>
+      Scale</strong></em><br>
+      This controls how much to drag the image outwards from the center </li>
+    <li><em><strong>
+      Layer Count</strong></em><br>
+      Low values give a lower quality image, but better performance, higher values
+      up the quality but are slower </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Squash"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Squash
+</b></font></td></tr></table>
+  <p>The input image is squashed vertically or horizontally and repeated across the output image.
+  </p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Horizontal</strong></em><br> 
+      Whether the images are sideways or up and down.
+    </li>
+    <li><em><strong>
+      Size</strong></em><br>
+      Sets the size of the tiled images, where 1 is a full size version of the
+      input. </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Static"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Static
+</b></font></td></tr></table>
+  <p>Produces an output of random noise, like the static on a TV screen getting no signal.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Greyscale</strong></em><br> 
+      With this turned on, all the colours in the image will be shades of grey, rather than all hues, giving a more TV like appearance.
+    </li>
+    <li><em><strong>
+      Two Tone</strong></em><br>
+      With this enabled, there will be only two colours used for the static,
+      giving a more noisy, contrasty look. </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Stretch"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Stretch
+</b></font></td></tr></table>
+  <p>This effect stretches the input image as if it were on a rubber sheet, allowing you to set where the four corners of the input image are on the output. It smoothly interpolates the image between these points, and either mirrors or tiles copies of the image outside the specified area.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Mirror</strong></em><br> 
+      With this turned on, outside the main image the input images are mirrored so the fit together at the edges, otherwise plain tiled versions are used.
+    </li>
+    <li><em><strong>
+      Top Left X</strong></em><br>
+      Sets the horizontal position of the top left corner of the input image
+      in the output. </li>
+    <li><em><strong>
+      Top Left Y</strong></em><br>
+      Sets the vertical position of the top left corner of the input image in
+      the output. </li>
+    <li><em><strong>
+      Top Right X</strong></em><br>
+      Sets the horizontal position of the top right corner of the input image
+      in the output. </li>
+    <li><em><strong>
+      Top Right Y</strong></em><br>
+      Sets the vertical position of the top right corner of the input image in
+      the output. </li>
+    <li><em><strong>
+      Bottom Right X</strong></em><br>
+      Sets the horizontal position of the bottom right corner of the input image
+      in the output. </li>
+    <li><em><strong>
+      Bottom Right Y</strong></em><br>
+      Sets the vertical position of the bottom right corner of the input image
+      in the output. </li>
+    <li><em><strong>
+      Bottom Left X</strong></em><br>
+      Sets the horizontal position of the bottom left corner of the input image
+      in the output. </li>
+    <li><em><strong>
+      Bottom Left Y</strong></em><br>
+      Sets the vertical position of the bottom left corner of the input image
+      in the output. </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Tile"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Tile
+</b></font></td></tr></table>
+  <p>A rectangular part of the input image is tiled and mirrored across the output.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Angle</strong></em><br> 
+      This rotates the output image
+    </li>
+    <li><em><strong>
+      Skew Angle</strong></em><br>
+      This changes the shape of the output tiles, from square to rectangular </li>
+    <li><em><strong>
+      Cell Width</strong></em><br>
+      This affects the width of the tiles </li>
+    <li><em><strong>
+      Cell Height</strong></em><br>
+      The height of all the tiles is controlled by this </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="TimeBlur"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    TimeBlur
+</b></font></td></tr></table>
+  <p>This takes a series of input frames and draws the blurred together result. This is rather like a video with a very long exposure time.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Time</strong></em><br> 
+      This controls how many frames are blurred together, and what the framerate is. 
+    </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="TimeSlice"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    TimeSlice
+</b></font></td></tr></table>
+  <p>This takes the input images in the last second or two, and draws different parts of the output image using those previous frames. There are several different styles that use different rules to pick which frames to use for which parts, most of them drawing horizontal or vertical slices of the input frames as the output. The 'image map' style uses the brightness of each pixel to decide which previous input frame to use for that pixel in the output.
+    This effect works well for input video that has a static background, with people or objects moving in front of it, 
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      SineSlur Period</strong></em><br> 
+      This controls how rapidly the sineslur style changes.
+    </li>
+    <li><em><strong>
+      SineSlur Amplitude</strong></em><br>
+      This controls what range of input frames the sineslur style chooses from,
+      so small values mean a short period of time, and large ones mean picking
+      from a long period. </li>
+    <li><em><strong>
+      Stutter Amplitude</strong></em><br>
+      This set how long a period of time the stutter style picks it's input frames
+      from. </li>
+    <li><em><strong>
+      Custom Playback Offset</strong></em><br>
+      In the custom playback style, you set this to control the time that the
+      playback frame is picked. </li>
+    <li><em><strong>
+      Horizontal</strong></em><br>
+      Whether the slices are drawn left to right or up and down. </li>
+    <li><em><strong>
+      Slice Size</strong></em><br>
+      How wide each slice is </li>
+    <li><em><strong>
+      Style</strong></em><br>
+      This sets the way the effect works, the styles are Polari, a simple reverse
+      and back, SineSlur, a more smooth blend, Stutter that picks frames at random,
+      and Custom, which is controled by the 'Custom Playback Offset' parameter </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="TimeWarp"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    TimeWarp
+</b></font></td></tr></table>
+  <p>This effect stores the last second or two of input frames, and picks an old frame from this continously updating buffer to use as the output. It's particularly useful on live feeds, where any scratching or distortion of time effects have to be done in performance. It looks good showing video with a lot of rhythmic movement in it, like dancers.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      SineSlur Period</strong></em><br> 
+      When the style is SineSlur, this determines how fast the frame rate speeds up and slows down.
+    </li>
+    <li><em><strong>
+      SineSlur Amplitude</strong></em><br>
+      For the SineSlur style, this controls how much of the buffer is used for
+      the speeding up and slowing down, so small values mean a short time before
+      the present is used, large values mean a long time. </li>
+    <li><em><strong>
+      Stutter Amplitude</strong></em><br>
+      The Stutter style uses this to determine how far back in the past to go
+      when picking frames to use from the buffer. </li>
+    <li><em><strong>
+      Custom Playback Offset</strong></em><br>
+      In the Custom style, this sets how far back in the past the frame that's
+      drawn is from. You can use to to effectively scratch live video. </li>
+    <li><em><strong>
+      Style</strong></em><br>
+      This sets how the drawn frame is picked from the buffer. Polari style runs
+      backwards through the buffer, so you get little snippets of time running
+      backwards. SineSlur style slows down time until it stops, and then speeds
+      up to catch up with the present. Stutter style picks a frame at random
+      from the buffer, so you get time jumping all over the place. Custom style
+      picks the frame specified by the 'Custom Playback Offset' parameter, allowing
+      you to scratch. </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="TVPixel"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    TVPixel
+</b></font></td></tr></table>
+  <p>The input image is displayed as a bunch of pixels, made up of red, green and blue bars, arranged in offset rows with black borders, like the elements that make up a TV screen.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Pixel Height</strong></em><br> 
+      This controls the height of each tv pixel
+    </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Vectorize"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Vectorize
+</b></font></td></tr></table>
+  <p>This takes an input image, and trys to draw it using flat polygons. It's very fussy about the type of images it works with, it needs simple, contrasting, clean input for best results.
+  </p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Pre-Filter Size</strong></em><br> 
+      The input is initially blurred to reduce the noise and simplify the structure before the vectorizing process is run on it. This parameter lets you set how much blur you want, small values will retain a lot of detail but will give a very unstable, flickering image. Large values will miss a lot of details but outlines should be more stable.
+    </li>
+    <li><em><strong>
+      Resolution</strong></em><br>
+      This defines how much detail to draw the polygons in, high values will
+      give more accurate outlines at the cost of some performance and image stability. </li>
+    <li><em><strong>
+      Monochrome</strong></em><br>
+      If this is enabled, only black and white are used for the output image. </li>
+    <li><em><strong>
+      Colour Count</strong></em><br>
+      If monochrome is not enabled, this sets how many different colours to use
+      for the polygons. High values can give a very complex output image. </li>
+    <li><em><strong>
+      Palette Persistence</strong></em><br>
+      The non-monochrome style of vectorization uses ColourReduce internally
+      to decide what colours to use. Since this choice is very dependent on the
+      particular colours in the current frame, which can change very frequently,
+      this parameter lets you specify how much to slow down the colour changes
+      by. Small values mean a rapidly changing palette, large values a very static
+      one. </li>
+    <li><em><strong>
+      Difference Threshold</strong></em><br>
+      This is a parameter used internally within the vectorization process. If
+      it's set to a low value, a lot of detail in the image will be kept, and
+      the image may be quite unstable. At high values you may miss some details,
+      but the outlines will be cleaner and you will get slightly better performance. </li>
+  </ol>
+  <p><br>
+    
+  </p>
+
+<a name="Wave"></a>  
+<table bgcolor="#996699" width="100%"><tr><td>
+<font face="Arial, Geneva" size="+2" color="#FFFFC0"><b>
+    Wave
+</b></font></td></tr></table>
+  <p>This effect takes the input image and blends it with the ripples from older images. It gives a mellow, spacy look.
+    
+</p>
+  <h3 align="left">Parameters</h3>
+  <ol>
+    <li><em><strong>
+      Friction</strong></em><br> 
+      This controls how long it takes for ripples to fade away. At high values they never fade, at low values the fade rapidly.
+    </li>
+    <li><em><strong>
+      Speed</strong></em><br>
+      This sets how fast the ripples respond to changes in the input and nearby
+      areas. </li>
+  </ol>
+  <p><br>
+  <hr width="80%">
+    <sub> (c) Pete Warden, 2003</sub>
+  </p>
+</blockquote>
+</font>
+</body>
+</html>
+
+
+
+
+
+<!--
+     FILE ARCHIVED ON 2:19:41 Feb 2, 2007 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 22:28:37 Jan 14, 2013.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

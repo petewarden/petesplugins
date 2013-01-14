@@ -1,0 +1,366 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Search Browser - Find Things Faster</title>
+</head>
+<body bgcolor="#eeeeee">
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="/static/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="/static/js/graph-calc.js" ></script>
+<script type="text/javascript" src="/static/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1388534399999;
+var wbPrefix = "/web/";
+var wbCurrentUrl = "http:\/\/www.petewarden.com\/newsandupdates.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 18;
+var firstYear = 1996;
+var imgWidth = 450;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "6";
+var displayMonth = "Dec";
+var displayYear = "2006";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(/static/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://www.petewarden.com/newsandupdates.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20061206000122" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20060821214321/http://petewarden.com/newsandupdates.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="21 Aug 2006"><strong>AUG</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 0:01:22 Dec 6, 2006">DEC</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20070216104927/http://www.petewarden.com/newsandupdates.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="16 Feb 2007"><strong>FEB</strong></a>
+		                
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20060821214321/http://petewarden.com/newsandupdates.html" title="21:43:21 Aug 21, 2006" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 0:01:22 Dec 6, 2006">6</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20070216104927/http://www.petewarden.com/newsandupdates.html" title="10:49:27 Feb 16, 2007" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_nxt_on.png" alt="Next capture" width="14" height="16" border="0"/></a>
+		                
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2005
+                       
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 0:01:22 Dec 6, 2006">2006</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20071211044222/http://www.petewarden.com/newsandupdates.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="11 Dec 2007"><strong>2007</strong></a>
+		                
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="/web/20061206000122*/http://www.petewarden.com/newsandupdates.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>22 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">7 Jul 06 - 22 Aug 11</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:450px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:450px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="450"
+				height="27"
+				border="0"
+				src="/web/jsp/graph.jsp?graphdata=450_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:11:000000340001_2007:-1:010000200101_2008:-1:110000100001_2009:-1:000100000000_2010:-1:000101010000_2011:-1:000000010000_2012:-1:000000000000_2013:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="/static/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="/static/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+<font face="verdana">
+<table width="60%" border="0" align=center bgcolor="#FFFFFF"><tr>
+    <td align=center><p><img src="/web/20061206000122im_/http://www.petewarden.com/flower.png" alt="Flower Logo" width="222" height="189"></p>
+    <p>&nbsp;</p></td>
+  <tr>
+    <td><table width="371" height="30" border="0" align="center">
+      <tr>
+        <td height="24"><p align="center"><a href="/web/20061206000122/http://petewarden.com/search">Search Browser</a> checks <a href="/web/20061206000122/http://google.com/">Google</a> search results to make sure they exist, and have the terms you're looking for. </p>
+          <p align="center"> To use, just type in your query as normal, hit send and wait for the results to load. Once the results page appears, the Search Browser will then check them out for you, and let you know what it finds!          
+          <p align="center"><font face="verdana">Right click on a link to open it in a new window, or use &quot;I feel lucky&quot; to open all of them. </font>
+          </td>
+      </tr>
+    </table></td>
+  <tr>
+    <td><div align="center">
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      </div>
+      <p align="center"><img src="/web/20061206000122im_/http://www.petewarden.com/letter.png" alt="Letter Icon" width="268" height="187"><br>
+        <font size="+1"><b>Please take a minute, and let me know who you are</b></font>
+      <p align="center">
+      <form action="/web/20061206000122/http://petewarden.com/cgi-sys/FormMail.pl" method="post">
+        <div align="center">
+          
+          <input type="hidden" name="recipient" value="registerform@petewarden.com">
+          <input type="hidden" name="redirect" value="http://www.petewarden.com/newsandupdates.html">
+          <input type="hidden" name="subject" value="Search Browser Registration">
+          Name:
+          <input type="text" name="Name" maxlength="30">
+          </p>
+          </div>
+        <p align="center"> E-mail:
+            <input type="text" name="E-Mail" value="" maxlength="60">
+        </p>
+        <p align="center"> Do you want to get occasional updates by email?:
+            <input type="checkbox" name="newsletters" value="yes">
+        </p>
+        <p align="center">
+          
+          <input type="submit" value="Register">
+          </p>
+      </form>
+    </td>
+  <tr>
+    <td><p>&nbsp;</p>
+    </td>
+  <tr>
+    <td align=center><p><img src="/web/20061206000122im_/http://www.petewarden.com/card.png" alt="Card Logo" width="257" height="214"></p>
+    <p><strong><font size="+1">Troubleshooting</font></strong></p>
+    <p>&nbsp;</p></td>
+  <tr>
+    <td><table width="60%" border="0" align="center">
+      <tr>
+        <td><ul>
+          <li><font face="verdana"><strong>Y</strong></font><strong>ou need a recent version of the Java Runtime on your machine. </strong></li>
+        </ul>
+          <p>If an error appears mentioning Java, <font face="verdana">y</font>ou'll need to <a href="/web/20061206000122/http://www.java.com/en/download/index.jsp">downloa<font face="verdana">d a Java Installer </font></a> for your OS and browser.<font face="verdana"> PCs generally don't have Java installed by default, <a href="/web/20061206000122/http://www.apple.com/getamac/" title="Get a Mac">Macs come with it built-in</a>. </font></p>
+          <ul>
+            <li> <font face="verdana"><strong>M</strong></font><strong>ake sure that you grant the applet the security permissions it needs to fetch web pages. </strong></li>
+            </ul>          
+          <p>This is done differently in different browsers, but you should normally see a dialog appear asking if you want to give permission for it to run. If you don't see a dialog, go into your browsers security settings, and make sure that they allow signed applets to run. </p>
+          <ul>
+            <li> <font face="verdana"><strong>T</strong></font><strong>here may be an internet connection problem. </strong></li>
+            </ul>          
+          <p>It may be that your internet connection runs through a proxy server, or some other configuration I haven't tested, that it won't be able to fetch web pages.<font face="verdana"> In that case, you should see an error message directing you to this page. </font>Please use the form below to report the details o<font face="verdana">f the problem. </font> </p>          
+          <p>&nbsp;</p></td>
+      </tr>
+	  <td>
+	  <form action="/web/20061206000122/http://petewarden.com/cgi-sys/FormMail.pl" method="post">
+        <div align="center">    
+          <input type="hidden" name="recipient" value="problemform@petewarden.com">
+          <input type="hidden" name="redirect" value="http://www.petewarden.com/newsandupdates.html">
+          <input type="hidden" name="subject" value="Search Browser Problem">
+          Name:
+          <input type="text" name="Name" maxlength="30">
+          </p>
+          </div>
+        <p align="center"> E-mail:
+            <input type="text" name="E-Mail" value="" maxlength="60">
+        </p>
+		<p align="center">
+		Operating System: <select name="OS" size=1>
+		<option>Windows XP</option>
+		<option>Windows ME</option>
+		<option>Windows 95</option>
+		<option>Linux</option>
+		<option>OS X</option>
+		<option>Other (please specify below)</option>
+		</select>
+		</p>
+		<p align="center"> Other:
+            <input type="text" name="OtherOS" value="" maxlength="60">
+        </p>
+        <p align="center">
+		Browser: <select name="Browser" size=1>
+		<option>Internet Explorer</option>
+		<option>Firefox</option>
+		<option>Safari</option>
+		<option>Opera</option>
+		<option>Other (please specify below)</option>
+		</select>
+		</p>
+		<p align="center"> Other:
+            <input type="text" name="OtherBrowser" value="" maxlength="60">
+        </p>
+		<p align="center"> Browser Version:
+            <input type="text" name="BrowserVersion" value="" maxlength="10">
+        </p>
+		<p align="center">
+		Description of problem
+		</p>
+		<p  align="center">
+		<textarea name="Problem Description" cols="40" rows="8">
+		</textarea>	
+		</p>
+        <p align="center">
+          <input type="submit" value="Submit">
+          </p>
+      </form>
+	  </td>
+    </table>      </td>
+</table>
+</font>
+</body>
+</html>
+
+
+
+
+
+<!--
+     FILE ARCHIVED ON 0:01:22 Dec 6, 2006 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 22:26:40 Jan 14, 2013.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
